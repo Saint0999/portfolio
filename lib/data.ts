@@ -1,37 +1,47 @@
-import type { Project, ReachMeLink } from "./types";
+import {
+  siC,
+  siCplusplus,
+  siGit,
+  siJavascript,
+  siNextdotjs,
+  siReact,
+  siTailwindcss,
+  siTypescript,
+} from "simple-icons";
+import type { Project, Skill, SocialLink } from "./types";
 
-export const reachMeLinks: ReachMeLink[] = [
-  {
-    label: "Email",
-    href: "mailto:saint.dev0999@gmail.com",
-    handle: "saint.dev0999@gmail.com",
-  },
-  {
-    label: "GitHub",
-    href: "https://github.com/Saint0999",
-    handle: "@Saint0999",
-  },
-  {
-    label: "X",
-    href: "https://x.com/avrm_999",
-    handle: "@avrm_999",
-  },
+/** The primary contact action — the whole left panel links here. */
+export const contactEmail = "saint.dev0999@gmail.com";
+
+export const socialLinks: SocialLink[] = [
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/avrm999/",
-    handle: "in/avrm999",
+    icon: "linkedin",
   },
+  { label: "GitHub", href: "https://github.com/Saint0999", icon: "github" },
+  { label: "X", href: "https://x.com/avrm_999", icon: "x" },
+  { label: "Email", href: `mailto:${contactEmail}`, icon: "email" },
 ];
 
-export const skills: string[] = [
-  "C",
-  "C++",
-  "JavaScript",
-  "TypeScript",
-  "React",
-  "Next.js",
-  "Tailwind CSS",
-  "Git",
+/*
+ * Icon paths come from simple-icons rather than being hand-written: these are
+ * the official marks, and transcribing logo geometry by hand produces subtly
+ * wrong shapes. Only `path` is taken — each icon's brand `hex` is deliberately
+ * discarded, since the stack renders monochrome.
+ *
+ * This module is only ever imported by Server Components, so the package is
+ * resolved at build time and none of it reaches the client bundle.
+ */
+export const skills: Skill[] = [
+  { name: siC.title, path: siC.path },
+  { name: siCplusplus.title, path: siCplusplus.path },
+  { name: siJavascript.title, path: siJavascript.path },
+  { name: siTypescript.title, path: siTypescript.path },
+  { name: siReact.title, path: siReact.path },
+  { name: siNextdotjs.title, path: siNextdotjs.path },
+  { name: siTailwindcss.title, path: siTailwindcss.path },
+  { name: siGit.title, path: siGit.path },
 ];
 
 export const projects: Project[] = [

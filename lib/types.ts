@@ -6,9 +6,16 @@ export interface Project {
   liveUrl: string;
 }
 
-export interface ReachMeLink {
+export interface Skill {
+  name: string;
+  /** SVG path data from simple-icons, drawn on a 24x24 viewBox. */
+  path: string;
+}
+
+export type SocialIcon = "linkedin" | "github" | "x" | "email";
+
+export interface SocialLink {
   label: string;
   href: string;
-  /** Set opposite the label in each row — the actual address or username. */
-  handle: string;
+  icon: SocialIcon;
 }

@@ -14,7 +14,7 @@ export default function ProjectRow({ project, index }: ProjectRowProps) {
       </span>
 
       <div className="mt-4 sm:mt-0">
-        <h3 className="font-display text-3xl leading-none tracking-tight text-paper transition-colors group-hover:text-signal sm:text-4xl">
+        <h3 className="metallic-soft font-display text-3xl leading-none tracking-tight text-paper transition-colors group-hover:text-signal sm:text-4xl">
           {project.title}
         </h3>
 
