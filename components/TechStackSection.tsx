@@ -18,7 +18,7 @@ export default function TechStackSection() {
               role="img"
               aria-label={skill.name}
               fill="currentColor"
-              className="h-8 w-8 text-muted transition-colors duration-200 group-hover:text-paper sm:h-9 sm:w-9"
+              className="h-8 w-8 text-muted transition-colors duration-300 ease-in-out group-hover:text-paper sm:h-9 sm:w-9"
             >
               <path d={skill.path} />
             </svg>
@@ -34,7 +34,7 @@ export default function TechStackSection() {
             */}
             <span
               aria-hidden
-              className="pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 translate-y-1 whitespace-nowrap font-sans text-[0.65rem] uppercase tracking-[0.18em] text-muted opacity-0 transition-[opacity,transform] duration-200 group-hover:translate-y-0 group-hover:opacity-100"
+              className="stack-label pointer-events-none absolute left-1/2 top-full mt-3 -translate-x-1/2 translate-y-1 whitespace-nowrap font-sans text-[0.65rem] uppercase tracking-[0.18em] text-muted opacity-0 group-hover:translate-y-0 group-hover:opacity-100"
             >
               {skill.name}
             </span>

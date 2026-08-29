@@ -200,3 +200,26 @@ button:focus-visible {
     transform: translateY(0);
   }
 }
+
+/*
+ * Stack hover labels. Asymmetric on purpose: coming in, opacity and the small
+ * rise animate together. Going out, only the opacity animates — the offset
+ * reset is held until after the fade has finished, so the label never visibly
+ * drifts back down while it's still readable. Animating both on exit is what
+ * reads as the label "sinking" as it leaves.
+ *
+ * The animated property is `translate`, not `transform`: Tailwind v4's
+ * translate-* utilities compile to the standalone `translate` property, so a
+ * transition on `transform` matches nothing and the offset snaps instead.
+ */
+.stack-label {
+  transition:
+    opacity 300ms ease-in-out,
+    translate 0ms linear 300ms;
+}
+
+.group:hover .stack-label {
+  transition:
+    opacity 300ms ease-in-out,
+    translate 300ms ease-in-out;
+}
