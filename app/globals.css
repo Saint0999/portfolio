@@ -3,8 +3,192 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* Instrument Serif: the hero's voice. High-contrast display serif, one
+   * weight only — the shapes carry the emphasis, not the weight axis. */
+  --font-display: var(--font-instrument-serif);
+
+  /*
+   * Page ground. Matches Invariant's own base. Dark grey rather than pure
+   * black so the ruled hairlines and the ray falloff both have something to
+   * separate from.
+   */
+  --color-ink: #141416;
+
+  /*
+   * Emphasis. Matching Invariant, this palette carries no chromatic accent at
+   * all — the strongest thing on the page is plain white, one step above the
+   * off-white body copy. Spent on the name, section indexes, hover, and focus.
+   * 18.7:1 on --color-ink.
+   */
+  --color-signal: #ffffff;
+
+  /*
+   * Body copy. Cool off-white, one step below --color-signal so emphasis has
+   * somewhere to go without reaching for a hue. 15.3:1 on --color-ink.
+   */
+  --color-paper: #e8e8ec;
+  /*
+   * Dim tertiary text (eyebrows, dates, metadata). Cool grey to sit
+   * with --color-paper. 6.7:1.
+   */
+  --color-muted: #9a9aa4;
+  /*
+   * Hairlines. The layout is ruled rather than boxed, so this is the only
+   * border value on the page — visible against the ground, never a shape.
+   */
+  --color-rule: #26262b;
+
+  /*
+   * Raised surface, from Invariant's own scale. One step off the ground —
+   * enough to read as a panel without needing a border.
+   */
+  --color-raised: #1a1a1a;
+  /*
+   * Amber. The one saturated surface on the site, spent entirely on the single
+   * primary action. Text on it is --color-ink, which clears AA across the whole
+   * gradient (9.5:1 at the mid stop, better at the light one).
+   */
+  --color-amber: #ff9900;
+}
+
+:root {
+  --ease-arrive: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Keyboard focus: the accent color doubling as the site's one selection signal. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/*
+ * Metallic type. The sheen is a single clean fade, angled to agree with the
+ * light actually on the page: HeroRays throws its fan from the top-right, so
+ * the type is brightest on the side facing that source and falls off away
+ * from it. Change the ray origin and this angle has to follow, or the headings
+ * end up lit from a direction nothing else on the page shares.
+ *
+ * Deliberately NOT a multi-stop chrome ramp with a specular band — at heading
+ * sizes that reads as a graphic trick sitting on top of the letters rather
+ * than as light falling across them.
+ *
+ * Transparency comes from -webkit-text-fill-color alone, never `color`. The
+ * property is supported in lockstep with background-clip:text, so a browser
+ * that cannot clip the gradient simply paints the element's own text color
+ * instead of rendering invisible text — the fallback needs no @supports.
+ *
+ * Every stop stays between #8e8e98 (5.8:1 on --color-ink) and white, so the
+ * type clears WCAG AA at its darkest point, not just on average.
+ */
+:root {
+  --light-angle: 225deg;
+}
+
+.metallic,
+.metallic-soft {
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/*
+ * Main headings. White holds across the lit side before rolling off, so the
+ * heading still reads as white type that happens to catch light, not as a
+ * grey gradient.
+ */
+.metallic {
+  background-image: linear-gradient(
+    var(--light-angle),
+    #ffffff 0%,
+    #f2f2f6 38%,
+    #b4b4be 78%,
+    #8e8e98 100%
+  );
+}
+
+/*
+ * Sub-level headings: project titles, stack entries, contact labels. Same
+ * light, shallower range — present enough to belong to the same material,
+ * never bright enough to compete with a .metallic heading above it.
+ */
+.metallic-soft {
+  background-image: linear-gradient(
+    var(--light-angle),
+    #e8e8ec 0%,
+    #b8b8c2 100%
+  );
+}
+
+/*
+ * Interactive rows resolve to flat white on hover. The gradient has to be
+ * removed outright — with background-clip active, setting `color` alone would
+ * be overridden by -webkit-text-fill-color and do nothing.
+ */
+.group:hover .metallic-soft,
+.group:focus-visible .metallic-soft {
+  background-image: none;
+  -webkit-text-fill-color: var(--color-signal);
+}
+
+/*
+ * Halftone overlay for the amber panel. It lives on its own layer rather than
+ * stacked into background-image because only the DOTS fade left-to-right — a
+ * mask on the element itself would take the orange with it. Needs `relative`
+ * on the panel, and content above it on the z-axis.
+ */
+.amber-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0.22) 1px,
+    transparent 1.15px
+  );
+  background-size: 6px 6px;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    #000 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  mask-image: linear-gradient(to right, #000 0%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+/*
+ * The dark half sits in that light. A warm bloom leaks in from its lower-left
+ * — the edge against the amber — so the two read as one lit surface rather
+ * than two unrelated blocks.
+ */
+.lit-panel {
+  background-image: radial-gradient(
+    85% 115% at -8% 112%,
+    rgba(255, 153, 0, 0.16) 0%,
+    transparent 62%
+  );
+}
+
+/* Hero: one composed arrival on first paint, not a scroll-reveal. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-rise {
+    animation: hero-rise 900ms var(--ease-arrive) both;
+    animation-delay: var(--hero-delay, 0ms);
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

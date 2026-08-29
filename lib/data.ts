@@ -1,39 +1,47 @@
-import type { Project, ReachMeLink, Skill } from "./types";
+import {
+  siC,
+  siCplusplus,
+  siGit,
+  siJavascript,
+  siNextdotjs,
+  siReact,
+  siTailwindcss,
+  siTypescript,
+} from "simple-icons";
+import type { Project, Skill, SocialLink } from "./types";
 
-export const githubUsername = "Saint0999";
+/** The primary contact action — the whole left panel links here. */
+export const contactEmail = "saint.dev0999@gmail.com";
 
-export const reachMeLinks: ReachMeLink[] = [
-  {
-    label: "Email",
-    href: "mailto:saint.dev0999@gmail.com",
-    icon: "mail",
-  },
-  {
-    label: "X",
-    href: "https://x.com/avrm_999",
-    icon: "x",
-  },
-  {
-    label: "GitHub",
-    href: "https://github.com/Saint0999",
-    icon: "github",
-  },
+export const socialLinks: SocialLink[] = [
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/avrm999/",
     icon: "linkedin",
   },
+  { label: "GitHub", href: "https://github.com/Saint0999", icon: "github" },
+  { label: "X", href: "https://x.com/avrm_999", icon: "x" },
+  { label: "Email", href: `mailto:${contactEmail}`, icon: "email" },
 ];
 
+/*
+ * Icon paths come from simple-icons rather than being hand-written: these are
+ * the official marks, and transcribing logo geometry by hand produces subtly
+ * wrong shapes. Only `path` is taken — each icon's brand `hex` is deliberately
+ * discarded, since the stack renders monochrome.
+ *
+ * This module is only ever imported by Server Components, so the package is
+ * resolved at build time and none of it reaches the client bundle.
+ */
 export const skills: Skill[] = [
-  { name: "C", slug: "c", iconColor: "A8B9CC" },
-  { name: "C++", slug: "cplusplus", iconColor: "659AD2" },
-  { name: "JavaScript", slug: "javascript", iconColor: "F7DF1E" },
-  { name: "TypeScript", slug: "typescript", iconColor: "3178C6" },
-  { name: "React", slug: "react", iconColor: "61DAFB" },
-  { name: "Tailwind CSS", slug: "tailwindcss", iconColor: "38BDF8" },
-  { name: "Next.js", slug: "nextdotjs", iconColor: "FFFFFF" },
-  { name: "Git", slug: "git", iconColor: "F05032" },
+  { name: siC.title, path: siC.path },
+  { name: siCplusplus.title, path: siCplusplus.path },
+  { name: siJavascript.title, path: siJavascript.path },
+  { name: siTypescript.title, path: siTypescript.path },
+  { name: siReact.title, path: siReact.path },
+  { name: siNextdotjs.title, path: siNextdotjs.path },
+  { name: siTailwindcss.title, path: siTailwindcss.path },
+  { name: siGit.title, path: siGit.path },
 ];
 
 export const projects: Project[] = [
@@ -54,11 +62,11 @@ export const projects: Project[] = [
     liveUrl: "https://revnet-pi.vercel.app/",
   },
   {
-    title: "Linear Clone",
+    title: "Invariant",
     description:
-      "A high-performance issue-tracking interface inspired by Linear, focusing on keyboard-first navigation and fluid UI states.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    githubUrl: "https://github.com/Saint0999/linear-clone",
-    liveUrl: "https://linear-clone-gilt.vercel.app/",
+      "A live price reference for 16 crypto tokens and 20 world currencies, with any-to-any conversion and per-asset history charts.",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Three.js"],
+    githubUrl: "https://github.com/Saint0999/invariant",
+    liveUrl: "https://invariant-beta.vercel.app/",
   },
 ];
