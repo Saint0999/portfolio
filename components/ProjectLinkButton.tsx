@@ -39,9 +39,11 @@ export default function ProjectLinkButton({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 rounded-full border border-zinc-800 px-3 py-1 text-xs font-medium text-zinc-300 transition-colors hover:border-zinc-600 hover:text-white"
+      className="group inline-flex items-center gap-1.5 rounded-full border border-zinc-800 px-3 py-1 text-xs font-medium text-zinc-300 transition-colors hover:border-zinc-600 hover:text-white"
     >
-      {icon === "github" ? <GithubIcon /> : <ExternalIcon />}
+      <span className="inline-flex transition-transform duration-200 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-focus-visible:translate-x-0.5 group-focus-visible:-translate-y-0.5">
+        {icon === "github" ? <GithubIcon /> : <ExternalIcon />}
+      </span>
       {label}
     </a>
   );

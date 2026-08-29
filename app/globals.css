@@ -5,6 +5,75 @@
   --font-mono: var(--font-geist-mono);
 }
 
+:root {
+  --ease-arrive: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Keyboard focus, themed from the page palette instead of the browser default. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid rgba(244, 244, 245, 0.85);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Hero: one composed arrival on first paint, not a scroll-reveal. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-rise {
+    animation: hero-rise 650ms var(--ease-arrive) both;
+    animation-delay: var(--hero-delay, 0ms);
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*
+ * GitHub contributions: the one authored focal moment. Cells draw in
+ * left-to-right, tracing the calendar the way the year itself filled in.
+ * Default state (no data-anim) is always fully visible so a pre-hydration
+ * or reduced-motion paint never hides real content.
+ */
+.contribution-cell {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-anim="ready"] .contribution-cell,
+  [data-anim="revealed"] .contribution-cell {
+    transition:
+      opacity 260ms var(--ease-arrive) var(--cell-delay, 0ms),
+      transform 260ms var(--ease-arrive) var(--cell-delay, 0ms);
+  }
+
+  [data-anim="ready"] .contribution-cell {
+    opacity: 0;
+    transform: scale(0.4);
+    will-change: opacity, transform;
+  }
+
+  [data-anim="ready"] .contribution-meta,
+  [data-anim="revealed"] .contribution-meta {
+    transition:
+      opacity 400ms var(--ease-arrive) 560ms,
+      transform 400ms var(--ease-arrive) 560ms;
+  }
+
+  [data-anim="ready"] .contribution-meta {
+    opacity: 0;
+    transform: translateY(6px);
+  }
 }

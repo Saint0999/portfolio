@@ -9,7 +9,7 @@ interface ProjectCardProps {
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
     <article className="group py-8">
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+      <div className="flex flex-col gap-6 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:translate-x-1 sm:flex-row sm:items-start sm:justify-between">
         <div className="sm:max-w-md">
           <h3 className="text-lg font-semibold text-zinc-100 transition-colors group-hover:text-white">
             {project.title}

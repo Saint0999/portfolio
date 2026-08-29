@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   CONTRIBUTIONS_ENDPOINT,
   type ContributionGraph as Graph,
 } from "@/lib/contributions";
+import { useHydrated, usePrefersReducedMotion } from "@/lib/motionHooks";
 
 const LEVEL_COLORS = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"];
 const CELL_SIZE = 11;
@@ -31,6 +32,19 @@ export default function ContributionGraph({
   profileUrl,
 }: Props) {
   const [graph, setGraph] = useState(initialGraph);
+  const hydrated = useHydrated();
+  const reducedMotion = usePrefersReducedMotion();
+  const [revealed, setRevealed] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  // Before hydration (server/static-export HTML) this is always undefined,
+  // so the graph always renders fully visible by default. Only once the
+  // client has taken over and motion is allowed do cells arm into their
+  // hidden pre-animation state, then reveal on scroll into view.
+  const animState = !hydrated || reducedMotion
+    ? undefined
+    : revealed
+      ? "revealed"
+      : "ready";
 
   useEffect(() => {
     const controller = new AbortController();
@@ -48,6 +62,24 @@ export default function ContributionGraph({
 
     return () => controller.abort();
   }, [username]);
+
+  useEffect(() => {
+    if (!hydrated || reducedMotion || revealed) return;
+    const node = containerRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setRevealed(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [hydrated, reducedMotion, revealed]);
 
   if (!graph) {
     return (
@@ -67,7 +99,7 @@ export default function ContributionGraph({
   }
 
   return (
-    <>
+    <div ref={containerRef} data-anim={animState}>
       <div className="overflow-x-auto">
         <svg
           viewBox={`0 0 ${LEFT_LABEL_WIDTH + graph.weeks.length * STEP} ${TOP_LABEL_HEIGHT + 7 * STEP}`}
@@ -100,6 +132,12 @@ export default function ContributionGraph({
               level === null ? null : (
                 <rect
                   key={`${col}-${row}`}
+                  className="contribution-cell"
+                  style={
+                    {
+                      "--cell-delay": `${Math.min(col * 9 + row * 11, 620)}ms`,
+                    } as React.CSSProperties
+                  }
                   x={LEFT_LABEL_WIDTH + col * STEP}
                   y={TOP_LABEL_HEIGHT + row * STEP}
                   width={CELL_SIZE}
@@ -112,7 +150,7 @@ export default function ContributionGraph({
           )}
         </svg>
       </div>
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-zinc-500">
+      <div className="contribution-meta mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-zinc-500">
         <p>
           {graph.total.toLocaleString()} contributions in the last year on{" "}
           <a
@@ -137,6 +175,6 @@ export default function ContributionGraph({
           <span>More</span>
         </div>
       </div>
-    </>
+    </div>
   );
 }
