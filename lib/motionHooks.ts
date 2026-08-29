@@ -16,20 +16,3 @@ export function usePrefersReducedMotion(): boolean {
     () => false,
   );
 }
-
-function subscribeOnce() {
-  return () => {};
-}
-
-/**
- * True only after the client has hydrated. Use to gate client-only visual
- * state (e.g. an animation's hidden pre-state) so the server/static-export
- * markup always renders fully visible content.
- */
-export function useHydrated(): boolean {
-  return useSyncExternalStore(
-    subscribeOnce,
-    () => true,
-    () => false,
-  );
-}

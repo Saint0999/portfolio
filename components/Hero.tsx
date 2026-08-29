@@ -1,26 +1,28 @@
 export default function Hero() {
   return (
-    <section className="pb-10 pt-16 sm:pb-10 sm:pt-20">
+    <section className="flex min-h-[88svh] flex-col items-center justify-center py-24 text-center">
       <p
-        className="hero-rise text-xs font-medium uppercase tracking-[0.2em] text-muted"
+        className="hero-rise font-sans text-xs font-medium uppercase tracking-[0.28em] text-muted sm:text-sm sm:tracking-[0.34em]"
         style={{ "--hero-delay": "0ms" } as React.CSSProperties}
       >
-        Engineering Student &middot; Developer
+        Engineering student &middot; Developer
       </p>
+
       <h1
-        className="hero-rise mt-6 max-w-3xl text-4xl font-semibold leading-tight tracking-tight text-zinc-50 sm:text-6xl sm:leading-tight"
-        style={{ "--hero-delay": "90ms" } as React.CSSProperties}
+        className="hero-rise mt-7 font-display text-6xl leading-[0.95] tracking-tight text-signal sm:text-8xl"
+        style={{ "--hero-delay": "110ms" } as React.CSSProperties}
       >
-        Abhinav
+        abhinav.
       </h1>
+
       <p
-        className="hero-rise mt-6 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg"
-        style={{ "--hero-delay": "180ms" } as React.CSSProperties}
+        className="hero-rise mt-8 max-w-xl font-display text-xl leading-relaxed text-paper sm:text-2xl sm:leading-relaxed"
+        style={{ "--hero-delay": "220ms" } as React.CSSProperties}
       >
-        I am an engineering student and developer focused on modern web
-        applications, Next.js, TypeScript, and React, with a goal of
-        building in the Web3 space. Beyond software, I stay active in the
-        gym and play football.
+        I build for the web. Modern applications in Next.js, TypeScript, and
+        React, with my sights set on Web3. I care about interfaces that feel
+        considered rather than assembled. Away from the editor, I&apos;m in the
+        gym or on a football pitch.
       </p>
     </section>
   );

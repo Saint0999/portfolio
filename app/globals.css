@@ -3,19 +3,40 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* Instrument Serif: the hero's voice. High-contrast display serif, one
+   * weight only — the shapes carry the emphasis, not the weight axis. */
+  --font-display: var(--font-instrument-serif);
+
   /*
-   * Dim tertiary text (eyebrows, status labels, metadata). Deliberately
-   * lighter than zinc-500 (#71717a, 4.35:1 on black — fails WCAG AA's
-   * 4.5:1 body-text floor) while staying visibly dimmer than zinc-400,
-   * which is already spoken for by body copy. ~5.8:1 on black.
+   * Page ground. Dark grey rather than black so the film grain has
+   * something to sit on — noise over pure #000 only ever lightens, which
+   * reads as banding instead of texture.
    */
-  --color-muted: #86868d;
+  --color-ink: #141416;
+
   /*
-   * Signal amber. The one accent color on an otherwise zinc/black page —
-   * spent only on status, focus, and the single primary action. Never on
-   * GitHub's own green contribution scale or the tech-brand icon colors.
+   * Emphasis. Matching Invariant, this palette carries no chromatic accent at
+   * all — the strongest thing on the page is plain white, one step above the
+   * off-white body copy. Spent on the name, section indexes, hover, and focus.
+   * 18.7:1 on --color-ink.
    */
-  --color-accent: #f0a531;
+  --color-signal: #ffffff;
+
+  /*
+   * Body copy. Cool off-white, one step below --color-signal so emphasis has
+   * somewhere to go without reaching for a hue. 15.3:1 on --color-ink.
+   */
+  --color-paper: #e8e8ec;
+  /*
+   * Dim tertiary text (eyebrows, dates, metadata). Cool grey to sit
+   * with --color-paper. 6.7:1.
+   */
+  --color-muted: #9a9aa4;
+  /*
+   * Hairlines. The layout is ruled rather than boxed, so this is the only
+   * border value on the page — visible against the ground, never a shape.
+   */
+  --color-rule: #26262b;
 }
 
 :root {
@@ -26,10 +47,28 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/*
+ * Film grain. One fixed layer over the whole page, generated in-document by
+ * feTurbulence so it costs no request and never tiles visibly. The noise is
+ * desaturated to grey and left semi-transparent. The opacity is the whole
+ * effect: much past 0.1 the noise lifts the grey toward mid-tone and reads
+ * as static sitting on top of the page rather than texture in it.
+ */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.085;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
 /* Keyboard focus: the accent color doubling as the site's one selection signal. */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-signal);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -37,7 +76,7 @@ button:focus-visible {
 /* Hero: one composed arrival on first paint, not a scroll-reveal. */
 @media (prefers-reduced-motion: no-preference) {
   .hero-rise {
-    animation: hero-rise 650ms var(--ease-arrive) both;
+    animation: hero-rise 900ms var(--ease-arrive) both;
     animation-delay: var(--hero-delay, 0ms);
   }
 }
@@ -45,48 +84,10 @@ button:focus-visible {
 @keyframes hero-rise {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-/*
- * GitHub contributions: the one authored focal moment. Cells draw in
- * left-to-right, tracing the calendar the way the year itself filled in.
- * Default state (no data-anim) is always fully visible so a pre-hydration
- * or reduced-motion paint never hides real content.
- */
-.contribution-cell {
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  [data-anim="ready"] .contribution-cell,
-  [data-anim="revealed"] .contribution-cell {
-    transition:
-      opacity 260ms var(--ease-arrive) var(--cell-delay, 0ms),
-      transform 260ms var(--ease-arrive) var(--cell-delay, 0ms);
-  }
-
-  [data-anim="ready"] .contribution-cell {
-    opacity: 0;
-    transform: scale(0.4);
-    will-change: opacity, transform;
-  }
-
-  [data-anim="ready"] .contribution-meta,
-  [data-anim="revealed"] .contribution-meta {
-    transition:
-      opacity 400ms var(--ease-arrive) 560ms,
-      transform 400ms var(--ease-arrive) 560ms;
-  }
-
-  [data-anim="ready"] .contribution-meta {
-    opacity: 0;
-    transform: translateY(6px);
   }
 }

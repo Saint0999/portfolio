@@ -1,14 +1,18 @@
 import { projects } from "@/lib/data";
-import ProjectCard from "./ProjectCard";
+import ProjectRow from "./ProjectRow";
 import SectionHeading from "./SectionHeading";
 
 export default function ProjectsSection() {
   return (
-    <section className="py-8 sm:py-10">
-      <SectionHeading eyebrow="Selected Work" title="Projects" />
-      <div className="flex flex-col divide-y divide-zinc-800">
-        {projects.map((project) => (
-          <ProjectCard key={project.title} project={project} />
+    <section className="py-14 sm:py-20">
+      <SectionHeading index="02" eyebrow="Selected work" title="Projects" />
+      <div>
+        {projects.map((project, i) => (
+          <ProjectRow
+            key={project.title}
+            project={project}
+            index={String(i + 1).padStart(2, "0")}
+          />
         ))}
       </div>
     </section>

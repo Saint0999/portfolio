@@ -6,18 +6,9 @@ export interface Project {
   liveUrl: string;
 }
 
-export interface Skill {
-  name: string;
-  slug: string;
-  iconColor: string;
-}
-
-export type ReachMeIcon = "x" | "github" | "linkedin" | "mail";
-
 export interface ReachMeLink {
   label: string;
   href: string;
-  icon: ReachMeIcon;
-  /** The one primary contact action, styled as a filled CTA. */
-  primary?: boolean;
+  /** Set opposite the label in each row — the actual address or username. */
+  handle: string;
 }

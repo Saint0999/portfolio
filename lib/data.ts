@@ -1,40 +1,37 @@
-import type { Project, ReachMeLink, Skill } from "./types";
-
-export const githubUsername = "Saint0999";
+import type { Project, ReachMeLink } from "./types";
 
 export const reachMeLinks: ReachMeLink[] = [
   {
     label: "Email",
     href: "mailto:saint.dev0999@gmail.com",
-    icon: "mail",
-    primary: true,
-  },
-  {
-    label: "X",
-    href: "https://x.com/avrm_999",
-    icon: "x",
+    handle: "saint.dev0999@gmail.com",
   },
   {
     label: "GitHub",
     href: "https://github.com/Saint0999",
-    icon: "github",
+    handle: "@Saint0999",
+  },
+  {
+    label: "X",
+    href: "https://x.com/avrm_999",
+    handle: "@avrm_999",
   },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/avrm999/",
-    icon: "linkedin",
+    handle: "in/avrm999",
   },
 ];
 
-export const skills: Skill[] = [
-  { name: "C", slug: "c", iconColor: "A8B9CC" },
-  { name: "C++", slug: "cplusplus", iconColor: "659AD2" },
-  { name: "JavaScript", slug: "javascript", iconColor: "F7DF1E" },
-  { name: "TypeScript", slug: "typescript", iconColor: "3178C6" },
-  { name: "React", slug: "react", iconColor: "61DAFB" },
-  { name: "Tailwind CSS", slug: "tailwindcss", iconColor: "38BDF8" },
-  { name: "Next.js", slug: "nextdotjs", iconColor: "FFFFFF" },
-  { name: "Git", slug: "git", iconColor: "F05032" },
+export const skills: string[] = [
+  "C",
+  "C++",
+  "JavaScript",
+  "TypeScript",
+  "React",
+  "Next.js",
+  "Tailwind CSS",
+  "Git",
 ];
 
 export const projects: Project[] = [
