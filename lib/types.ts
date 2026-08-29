@@ -3,7 +3,10 @@ export interface Project {
   description: string;
   stack: string[];
   githubUrl: string;
-  liveUrl: string;
+  /** Omitted when a project has no working deployment. */
+  liveUrl?: string;
+  /** Screenshot in /public/projects, captured at 1600x1000. */
+  image: string;
 }
 
 export interface Skill {

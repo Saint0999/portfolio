@@ -1,7 +1,6 @@
 import { siGithub, siX } from "simple-icons";
 import { contactEmail, socialLinks } from "@/lib/data";
 import type { SocialIcon } from "@/lib/types";
-import SectionHeading from "./SectionHeading";
 
 /*
  * Neither simple-icons nor lucide ships a LinkedIn mark — it was withdrawn at
@@ -45,10 +44,12 @@ export default function ReachMeSection() {
   // Static export: evaluated at build, so it advances with each deploy.
   const year = new Date().getFullYear();
 
+  // No section heading: the card carries its own ("Let's build" / "Or
+  // connect"), and a third heading above them was one too many. That also
+  // makes this the page's terminal block rather than another numbered entry,
+  // so the top padding is trimmed to sit close under the stack.
   return (
-    <section className="py-14 sm:py-20">
-      <SectionHeading index="04" eyebrow="Get in touch" title="Reach me" />
-
+    <section className="pt-2 pb-14 sm:pt-4 sm:pb-20">
       {/* overflow-hidden is what keeps the two flush halves inside the radius. */}
       <div className="grid overflow-hidden rounded-2xl sm:grid-cols-2">
         {/*
