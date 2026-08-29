@@ -3,6 +3,19 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /*
+   * Dim tertiary text (eyebrows, status labels, metadata). Deliberately
+   * lighter than zinc-500 (#71717a, 4.35:1 on black — fails WCAG AA's
+   * 4.5:1 body-text floor) while staying visibly dimmer than zinc-400,
+   * which is already spoken for by body copy. ~5.8:1 on black.
+   */
+  --color-muted: #86868d;
+  /*
+   * Signal amber. The one accent color on an otherwise zinc/black page —
+   * spent only on status, focus, and the single primary action. Never on
+   * GitHub's own green contribution scale or the tech-brand icon colors.
+   */
+  --color-accent: #f0a531;
 }
 
 :root {
@@ -13,10 +26,10 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
-/* Keyboard focus, themed from the page palette instead of the browser default. */
+/* Keyboard focus: the accent color doubling as the site's one selection signal. */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid rgba(244, 244, 245, 0.85);
+  outline: 2px solid var(--color-accent);
   outline-offset: 3px;
   border-radius: 4px;
 }

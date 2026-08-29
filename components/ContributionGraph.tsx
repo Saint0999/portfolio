@@ -83,7 +83,7 @@ export default function ContributionGraph({
 
   if (!graph) {
     return (
-      <p className="text-sm text-zinc-500">
+      <p className="text-sm text-muted">
         View contribution activity on{" "}
         <a
           href={profileUrl}
@@ -150,9 +150,10 @@ export default function ContributionGraph({
           )}
         </svg>
       </div>
-      <div className="contribution-meta mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-zinc-500">
+      <div className="contribution-meta mt-4 flex flex-wrap items-center justify-between gap-3 text-sm text-muted">
         <p>
-          {graph.total.toLocaleString()} contributions in the last year on{" "}
+          <span className="tabular-nums">{graph.total.toLocaleString()}</span>{" "}
+          contributions in the last year on{" "}
           <a
             href={profileUrl}
             target="_blank"

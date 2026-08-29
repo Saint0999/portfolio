@@ -18,4 +18,6 @@ export interface ReachMeLink {
   label: string;
   href: string;
   icon: ReachMeIcon;
+  /** The one primary contact action, styled as a filled CTA. */
+  primary?: boolean;
 }

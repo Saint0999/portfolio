@@ -2,7 +2,7 @@ export default function Hero() {
   return (
     <section className="pb-10 pt-16 sm:pb-10 sm:pt-20">
       <p
-        className="hero-rise text-sm font-medium uppercase tracking-[0.2em] text-zinc-500"
+        className="hero-rise text-xs font-medium uppercase tracking-[0.2em] text-muted"
         style={{ "--hero-delay": "0ms" } as React.CSSProperties}
       >
         Engineering Student &middot; Developer

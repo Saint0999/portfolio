@@ -7,6 +7,7 @@ export const reachMeLinks: ReachMeLink[] = [
     label: "Email",
     href: "mailto:saint.dev0999@gmail.com",
     icon: "mail",
+    primary: true,
   },
   {
     label: "X",
@@ -54,11 +55,11 @@ export const projects: Project[] = [
     liveUrl: "https://revnet-pi.vercel.app/",
   },
   {
-    title: "Linear Clone",
+    title: "Invariant",
     description:
-      "A high-performance issue-tracking interface inspired by Linear, focusing on keyboard-first navigation and fluid UI states.",
-    stack: ["Next.js", "TypeScript", "Tailwind CSS"],
-    githubUrl: "https://github.com/Saint0999/linear-clone",
-    liveUrl: "https://linear-clone-gilt.vercel.app/",
+      "A live price reference for 16 crypto tokens and 20 world currencies, with any-to-any conversion and per-asset history charts.",
+    stack: ["Next.js", "TypeScript", "Tailwind CSS", "Three.js"],
+    githubUrl: "https://github.com/Saint0999/invariant",
+    liveUrl: "https://invariant-beta.vercel.app/",
   },
 ];
