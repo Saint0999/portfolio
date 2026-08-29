@@ -126,13 +126,21 @@ button:focus-visible {
 }
 
 /*
- * Interactive rows resolve to flat white on hover. The gradient has to be
- * removed outright — with background-clip active, setting `color` alone would
- * be overridden by -webkit-text-fill-color and do nothing.
+ * Interactive rows resolve to flat white on hover, by fading the fill colour
+ * from transparent to opaque over the clipped gradient — NOT by removing the
+ * gradient. `background-image: gradient -> none` cannot be interpolated, so
+ * that version could only ever snap. Animating -webkit-text-fill-color works
+ * because it is an ordinary colour: as the white becomes opaque it covers the
+ * metal inside the glyphs, which reads as the sheen resolving to flat white.
+ *
+ * Matches the screenshot's 700ms ease-in-out so the whole row moves as one.
  */
+.metallic-soft {
+  transition: -webkit-text-fill-color 700ms ease-in-out;
+}
+
 .group:hover .metallic-soft,
 .group:focus-visible .metallic-soft {
-  background-image: none;
   -webkit-text-fill-color: var(--color-signal);
 }
 
