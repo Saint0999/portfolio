@@ -23,7 +23,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Saint | Portfolio",
+  title: "Abhinav | Portfolio",
   description:
     "Engineering student and developer building modern web applications with Next.js, TypeScript, and React.",
 };
